@@ -24,77 +24,101 @@ body {
     width: 100%;
 }
 
-h1 {
-    color: #333;
-    margin-bottom: 10px;
-    font-size: 32px;
-}
-
-.subtitle {
-    color: #666;
-    margin-bottom: 30px;
-    font-size: 16px;
-}
-
-.button-group {
+.mode {
     display: flex;
-    gap: 10px;
-    margin-bottom: 30px;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
 }
 
-.btn {
-    padding: 12px 24px;
+/* MODO TRANSMISSOR */
+.camera-icon {
+    font-size: 120px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 30px;
+    padding: 30px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+}
+
+.camera-icon:hover {
+    transform: scale(1.1);
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+}
+
+.camera-icon:active {
+    transform: scale(0.95);
+}
+
+.instruction {
+    color: #666;
     font-size: 16px;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+#qrContainer {
+    margin-top: 30px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    border: 2px dashed #667eea;
+}
+
+#qrContainer h3 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+#qrCode {
+    margin: 20px auto;
+    display: flex;
+    justify-content: center;
+}
+
+#qrCode canvas {
+    border: 3px solid #667eea;
+    border-radius: 8px;
+    padding: 10px;
+    background: white;
+}
+
+.link-input {
+    width: 100%;
+    padding: 12px;
+    margin: 15px 0;
+    border: 2px solid #667eea;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: 'Courier New', monospace;
+}
+
+.btn-copy {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    transition: all 0.3s ease;
     font-weight: 600;
-    min-width: 150px;
+    transition: all 0.3s ease;
 }
 
-.btn-primary {
-    background-color: #007bff;
-    color: white;
-}
-
-.btn-primary:hover:not(:disabled) {
-    background-color: #0056b3;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
-}
-
-.btn-danger {
-    background-color: #dc3545;
-    color: white;
-}
-
-.btn-danger:hover:not(:disabled) {
-    background-color: #c82333;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(220, 53, 69, 0.4);
-}
-
-.btn-success {
-    background-color: #28a745;
-    color: white;
-}
-
-.btn-success:hover:not(:disabled) {
+.btn-copy:hover {
     background-color: #218838;
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
 }
 
-.btn:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-    opacity: 0.6;
+/* MODO RECEPTOR */
+h2 {
+    color: #333;
+    margin-bottom: 20px;
 }
 
-.video-preview {
+.video-stream {
     width: 100%;
     max-width: 500px;
     margin: 20px auto;
@@ -105,6 +129,25 @@ h1 {
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
 }
 
+.btn-disconnect {
+    padding: 12px 24px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+}
+
+.btn-disconnect:hover {
+    background-color: #c82333;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(220, 53, 69, 0.4);
+}
+
 .status {
     margin: 20px 0;
     padding: 15px;
@@ -112,6 +155,7 @@ h1 {
     font-weight: 600;
     min-height: 24px;
     color: #333;
+    word-break: break-word;
 }
 
 .status.success {
@@ -132,28 +176,10 @@ h1 {
     border: 1px solid #bee5eb;
 }
 
-.info-box {
-    background-color: #f8f9fa;
-    border-left: 4px solid #667eea;
-    padding: 20px;
-    margin-top: 30px;
-    border-radius: 8px;
-    text-align: left;
-}
-
-.info-box h3 {
-    color: #333;
-    margin-bottom: 15px;
-}
-
-.info-box ul {
-    list-style-position: inside;
-    color: #666;
-    line-height: 1.8;
-}
-
-.info-box li {
-    margin-bottom: 8px;
+.status.loading {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeaa7;
 }
 
 @media (max-width: 600px) {
@@ -161,15 +187,17 @@ h1 {
         padding: 20px;
     }
 
-    h1 {
-        font-size: 24px;
+    .camera-icon {
+        font-size: 80px;
+        padding: 20px;
+        margin-bottom: 20px;
     }
 
-    .button-group {
-        flex-direction: column;
+    .instruction {
+        font-size: 14px;
     }
 
-    .btn {
-        width: 100%;
+    .video-stream {
+        max-width: 100%;
     }
 }
