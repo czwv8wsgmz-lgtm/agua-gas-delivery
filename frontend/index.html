@@ -8,38 +8,35 @@
 </head>
 <body>
     <div class="container">
-        <h1>📷 Compartilhar Câmera</h1>
-        <p class="subtitle">Compartilhe sua câmera frontal via internet</p>
-        
-        <div class="button-group">
-            <button id="startBtn" class="btn btn-primary" onclick="iniciarCamera()">
-                ▶️ Iniciar Câmera
-            </button>
+        <!-- MODO TRANSMISSOR (Envia câmera) -->
+        <div id="transmitterMode" class="mode">
+            <div class="camera-icon" id="cameraIcon" onclick="iniciarTransmissao()" title="Clique para compartilhar câmera">
+                📷
+            </div>
+            <p class="instruction">Clique na foto para compartilhar sua câmera</p>
+            <div id="transmitterStatus" class="status"></div>
             
-            <button id="stopBtn" class="btn btn-danger" onclick="pararCamera()" disabled>
-                ⏹️ Parar Câmera
-            </button>
-            
-            <button id="shareBtn" class="btn btn-success" onclick="compartilharCamera()" disabled>
-                🌐 Compartilhar via Internet
-            </button>
+            <!-- QR Code -->
+            <div id="qrContainer" style="display: none;">
+                <h3>Compartilhe este link:</h3>
+                <div id="qrCode"></div>
+                <input type="text" id="shareLink" readonly class="link-input">
+                <button onclick="copiarLink()" class="btn-copy">📋 Copiar Link</button>
+            </div>
         </div>
-        
-        <video id="videoPreview" class="video-preview" autoplay playsinline muted></video>
-        
-        <div class="status" id="status"></div>
-        
-        <div class="info-box">
-            <h3>📝 Informações:</h3>
-            <ul>
-                <li>Clique em "Iniciar Câmera" para ativar a câmera frontal</li>
-                <li>Clique em "Compartilhar via Internet" para enviar o stream</li>
-                <li>O compartilhamento dura 5 segundos por padrão</li>
-                <li>Clique em "Parar Câmera" para desativar</li>
-            </ul>
+
+        <!-- MODO RECEPTOR (Recebe câmera) -->
+        <div id="receiverMode" class="mode" style="display: none;">
+            <h2>📹 Câmera Compartilhada</h2>
+            <video id="remoteVideo" class="video-stream" autoplay playsinline></video>
+            <div id="receiverStatus" class="status"></div>
+            <button onclick="desconectarReceptor()" class="btn-disconnect">❌ Desconectar</button>
         </div>
     </div>
 
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-peer@9.11.1/simplepeer.min.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
