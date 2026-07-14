@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compartilhar Câmera</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>📷 Compartilhar Câmera</h1>
+        <p class="subtitle">Compartilhe sua câmera frontal via internet</p>
+        
+        <div class="button-group">
+            <button id="startBtn" class="btn btn-primary" onclick="iniciarCamera()">
+                ▶️ Iniciar Câmera
+            </button>
+            
+            <button id="stopBtn" class="btn btn-danger" onclick="pararCamera()" disabled>
+                ⏹️ Parar Câmera
+            </button>
+            
+            <button id="shareBtn" class="btn btn-success" onclick="compartilharCamera()" disabled>
+                🌐 Compartilhar via Internet
+            </button>
+        </div>
+        
+        <video id="videoPreview" class="video-preview" autoplay playsinline muted></video>
+        
+        <div class="status" id="status"></div>
+        
+        <div class="info-box">
+            <h3>📝 Informações:</h3>
+            <ul>
+                <li>Clique em "Iniciar Câmera" para ativar a câmera frontal</li>
+                <li>Clique em "Compartilhar via Internet" para enviar o stream</li>
+                <li>O compartilhamento dura 5 segundos por padrão</li>
+                <li>Clique em "Parar Câmera" para desativar</li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
